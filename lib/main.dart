@@ -1,5 +1,6 @@
 import 'package:e_commerce/cubit/app_cubit.dart';
 import 'package:e_commerce/layout/HomeLayout.dart';
+import 'package:e_commerce/modules/on_boarding/on_boarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
               )
           ),
           themeMode: BlocProvider.of<AppCubit>(context).isLightMode? ThemeMode.light:ThemeMode.dark ,
-          home: const HomeLayout(),
+          home:  OnBoardingScreen(),
         ),
       ),
     );
