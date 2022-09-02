@@ -1,1 +1,3 @@
-const login = 'login';
+class EndPoints{
+  static const login = 'login';
+}
