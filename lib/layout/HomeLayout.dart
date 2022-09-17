@@ -1,6 +1,7 @@
 import 'package:e_commerce/cubit/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 class HomeLayout extends StatefulWidget {
   const HomeLayout({Key? key}) : super(key: key);
 
@@ -15,7 +16,7 @@ class _HomeLayoutState extends State<HomeLayout> {
         appBar: AppBar(),
       body: Container(
         child: ElevatedButton(
-            child: Text('theme'),
+            child: const Text('theme'),
             onPressed: (){
           BlocProvider.of<AppCubit>(context).changeAppThemeMode();
         }),

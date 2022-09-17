@@ -1,9 +1,15 @@
 import 'package:e_commerce/Screens/login_screen/login_screen.dart';
+import 'package:e_commerce/commen_utils/preference/Prefs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../commen_utils/preference/Const.dart';
+import '../../commen_utils/preference/Prefs.dart';
+import '../../commen_utils/preference/Prefs.dart';
+import '../../commen_utils/preference/Prefs.dart';
 
 class OnBoardingScreen extends StatefulWidget {
    const OnBoardingScreen({Key? key}) : super(key: key);
@@ -54,8 +60,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   ),
                   const Spacer(),
                   FloatingActionButton(
-                    onPressed: (){
-
+                    onPressed: () async {
+                      Prefs.setIsFirstTime(false);
+                      bool x = await Prefs.isFirstTime;
+                      bool y = await Prefs.containsKey(Const.IS_FIRST_TIME_KEY);
+                      print('!!!!!!!!!!!!!!!!!!! $x $y');
                       isLast?Navigator.pushAndRemoveUntil(context, CupertinoPageRoute(builder: (context)=>LoginScreen()), (route) => false):pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                     },
                     child: const Icon(Icons.navigate_next),)

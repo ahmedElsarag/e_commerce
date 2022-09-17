@@ -1,11 +1,13 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:e_commerce/Screens/login_screen/cubit/shop_login_cubit.dart';
 import 'package:e_commerce/Screens/login_screen/cubit/shop_login_state.dart';
+import 'package:e_commerce/shared/components/CustomToast.dart';
 import 'package:e_commerce/shared/components/default_button.dart';
 import 'package:e_commerce/shared/components/text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -22,6 +24,9 @@ class LoginScreen extends StatelessWidget {
       create: (context) => ShopLoginCubit(),
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
         listener: (context, state) {
+          if(state is ShopLoginErrorState){
+            CustomToast.showToast(msg: state!.error!, color: Colors.redAccent);
+          }
           // TODO: implement listener
         },
         builder: (context, state) {
