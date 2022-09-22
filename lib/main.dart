@@ -1,3 +1,4 @@
+import 'package:e_commerce/Screens/home_screen/home_screen.dart';
 import 'package:e_commerce/Screens/login_screen/login_screen.dart';
 import 'package:e_commerce/commen_utils/preference/Const.dart';
 import 'package:e_commerce/commen_utils/preference/Prefs.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+import 'Screens/main_screen/main_screen.dart';
 import 'Screens/on_boarding/on_boarding_screen.dart';
 
 void main() async {
@@ -76,7 +78,7 @@ class MyApp extends StatelessWidget {
             themeMode: BlocProvider.of<AppCubit>(context).isLightMode
                 ? ThemeMode.light
                 : ThemeMode.dark,
-            home: isFirstTime! ? const OnBoardingScreen() : isUserLogin! ? HomeLayout(): LoginScreen(),
+            home: isFirstTime! ? const OnBoardingScreen() : isUserLogin! ? MainScreen(): LoginScreen(),
           ),
         ),
       ),

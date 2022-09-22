@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:e_commerce/Screens/home_screen/home_screen.dart';
 import 'package:e_commerce/Screens/login_screen/cubit/shop_login_cubit.dart';
 import 'package:e_commerce/Screens/login_screen/cubit/shop_login_state.dart';
 import 'package:e_commerce/shared/components/CustomToast.dart';
@@ -25,8 +26,13 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
         listener: (context, state) {
           if(state is ShopLoginErrorState){
+            print(state!.error);
             CustomToast.showToast(msg: state!.error!, color: Colors.redAccent);
           }
+          if(state is ShopLoginSuccessState){
+            Navigator.pushAndRemoveUntil(context, CupertinoPageRoute(builder: (context)=>const HomeScreen()), (route) => false);
+          }
+
           // TODO: implement listener
         },
         builder: (context, state) {
