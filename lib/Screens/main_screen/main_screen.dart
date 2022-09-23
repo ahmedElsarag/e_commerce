@@ -10,7 +10,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
    
     return BlocProvider(
-  create: (context) => MainScreenCubit(),
+  create: (context) => MainScreenCubit()..getHomeData(),
   child: BlocConsumer<MainScreenCubit,MainScreenStates>(
       listener: (BuildContext context, Object? state) {  },
       builder: (BuildContext context, state) =>

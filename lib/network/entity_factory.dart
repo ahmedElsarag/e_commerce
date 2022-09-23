@@ -1,3 +1,5 @@
+import 'package:e_commerce/network/models/home_model.dart';
+
 import 'models/LoginResponse.dart';
 
 class EntityFactory {
@@ -5,7 +7,8 @@ class EntityFactory {
     switch (T.toString()) {
       case "LoginResponse":
         return LoginResponse.fromJson(json) as T;
-        break;
+      case "HomeResponse":
+        return HomeResponse.fromJson(json) as T;
 
       default:
         return null;
