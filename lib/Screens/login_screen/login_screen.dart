@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:e_commerce/Screens/home_screen/home_screen.dart';
 import 'package:e_commerce/Screens/login_screen/cubit/shop_login_cubit.dart';
 import 'package:e_commerce/Screens/login_screen/cubit/shop_login_state.dart';
+import 'package:e_commerce/Screens/main_screen/main_screen.dart';
 import 'package:e_commerce/shared/components/CustomToast.dart';
 import 'package:e_commerce/shared/components/default_button.dart';
 import 'package:e_commerce/shared/components/text_field.dart';
@@ -30,7 +31,7 @@ class LoginScreen extends StatelessWidget {
             CustomToast.showToast(msg: state!.error!, color: Colors.redAccent);
           }
           if(state is ShopLoginSuccessState){
-            Navigator.pushAndRemoveUntil(context, CupertinoPageRoute(builder: (context)=>const HomeScreen()), (route) => false);
+            Navigator.pushAndRemoveUntil(context, CupertinoPageRoute(builder: (context)=>const MainScreen()), (route) => false);
           }
 
           // TODO: implement listener
