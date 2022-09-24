@@ -15,6 +15,7 @@ class DioHelper {
         receiveTimeout: 5000,
         headers: {
           'Content-Type': 'application/json',
+          'lang':'en'
         }));
     dio?.interceptors.add(LoggingInterceptor());
   }

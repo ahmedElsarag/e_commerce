@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 
 import '../../../network/api/dio_helper.dart';
 import '../../../network/end_points.dart';
+import '../../../network/models/category_response.dart';
 import '../../../network/models/home_model.dart';
 
 part 'home_state.dart';
@@ -20,16 +21,30 @@ class HomeCubit extends Cubit<HomeState> {
         url: EndPoints.home,
         onSuccess: (response) {
           emit(SuccessHomeDataState());
-          if(response!.status!) {
+          if (response!.status!) {
             print(response.data?.products![0]?.name);
             homeResponse = response;
           }
-
-        }).catchError((error){
+        }).catchError((error) {
       print(error);
       emit(ErrorHomeDataState());
     });
   }
+
+  CategoryResponse? categoriesData;
+  void getHomeCategory() {
+    emit(LoadingHomeCategoryState());
+    DioHelper.getData<CategoryResponse>(
+        url: EndPoints.categories, onSuccess: (response) {
+          emit(SuccessHomeCategoryState());
+          if(response!.status!){
+            categoriesData = response;
+          }
+    }).catchError((error){
+      emit(ErrorHomeCategoryState());
+    });
+  }
+
 
   int _carouselIndex = 0;
 

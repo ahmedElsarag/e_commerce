@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce/Screens/home_screen/component/screen_banner.dart';
 import 'package:e_commerce/Screens/home_screen/component/search_bar.dart';
 import 'package:e_commerce/Screens/home_screen/cubit/home_cubit.dart';
 import 'package:e_commerce/src/app_color.dart';
@@ -14,7 +15,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit()..getHomeData(),
+      create: (context) =>
+      HomeCubit()
+        ..getHomeData()
+        ..getHomeCategory(),
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
           // TODO: implement listener
@@ -41,129 +45,90 @@ class HomeScreen extends StatelessWidget {
                 )
               ],
             ),
-            body: HomeCubit.get(context).homeResponse != null?
-            Column(
+            body: HomeCubit
+                .get(context)
+                .homeResponse != null
+                ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 SearchBar(),
                 SizedBox(
                   height: 2.h,
                 ),
-                Stack(
-                  children: [
-                    CarouselSlider(
-                        items: HomeCubit.get(context)
-                            .homeResponse
-                            ?.data
-                            ?.banners
-                            ?.map((e) => Container(
-                                  width: 95.w,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        e.image!,
-                                      ),
-                                      fit: BoxFit.cover,
-                                      colorFilter: ColorFilter.mode(Colors.black.withOpacity(.6),
-                                          BlendMode.darken,)
-                                    )
-                                  ),
-                            child:Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 20),
-                                Container(
-                                  height: 35,
-                                  width: 130,
-                                  alignment: Alignment.center,
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(15),
-                                      topRight: Radius.circular(15),
-                                    ),
-                                    color: Colors.white24,
-                                  ),
-                                  child: const Text(
-                                    'Special Promo',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 15),
-                                Row(
-                                  children: [
-                                    const SizedBox(width: 20),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: const [
-                                          Text(
-                                            'All menswear',
-                                            style: TextStyle(color: Colors.white),
-                                          ),
-                                          Text(
-                                            '50% Discount',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          SizedBox(height: 20),
-                                          // AppButton.normalButton(
-                                          //   height: 35,
-                                          //   width: 100,
-                                          //   title: 'Buy Now',
-                                          //   backgroundColor: Colors.white,
-                                          //   shadow: false,
-                                          //   titleColor: Colors.black,
-                                          // ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )
-                                ))
-                            .toList(),
-                        options: CarouselOptions(
-                          height: 25.h,
-                          aspectRatio: 16 / 9,
-                          viewportFraction: 1,
-                          initialPage: 0,
-                          enableInfiniteScroll: true,
-                          reverse: false,
-                          autoPlay: true,
-                          autoPlayInterval: const Duration(seconds: 3),
-                          autoPlayAnimationDuration:
-                              const Duration(milliseconds: 800),
-                          autoPlayCurve: Curves.fastOutSlowIn,
+                ScreenBanner(),
+                SizedBox(
+                  height: 2.h,
+                ),
+                Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        Text('category',style: TextStyle(fontSize: 12.sp,fontWeight: FontWeight.w400),),
+                        Spacer(),
+                        Text('View All',style: TextStyle(color:AppColors.lightGrey,fontSize: 10.sp,fontWeight: FontWeight.w400),),
+                      ],
+                    )),
+                SizedBox(height:1.h),
+                HomeCubit
+                    .get(context)
+                    .categoriesData != null ? Expanded(
+                  child: Container(
+                      width: 100.w,
+                      margin: EdgeInsetsDirectional.only(start: 10),
+                      child: ListView.separated(
+                          shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          onPageChanged: (index,_){
-                            HomeCubit.get(context).carouselIndex = index;
-                          }
-                        )),
-                    PositionedDirectional(
-                      bottom: 10,
-                      end: 20,
-                      child: AnimatedSmoothIndicator(
-                        activeIndex: HomeCubit.get(context).carouselIndex,
-                        count: (HomeCubit.get(context).homeResponse?.data?.banners?.length)!,
-                        effect: const WormEffect(
-                          dotWidth: 3,
-                          dotHeight: 10,
-                          spacing: 5
-                        ),
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                Container(
+                                  width: 20.w,
+                                  height: 16.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                        image: NetworkImage((HomeCubit
+                                            .get(context)
+                                            .categoriesData
+                                            ?.data
+                                            ?.data?[index]?.image)!)
+                                        , fit: BoxFit.cover,
+                                        colorFilter: ColorFilter.mode(
+                                            Colors.black.withOpacity(.8),
+                                            BlendMode.darken)
+                                    ),
 
-                      ),
-                    )
-                  ],
-                )
+                                  ),
+
+                                ),
+                                SizedBox(height: .6.h,),
+                                Container(
+                                    width: 14.w,
+                                    child: Text((HomeCubit
+                                        .get(context)
+                                        .categoriesData
+                                        ?.data
+                                        ?.data?[index]?.name)!, maxLines: 1,
+                                      overflow: TextOverflow.visible,
+                                      textAlign: TextAlign.center,))
+                              ],
+                            );
+                          },
+                          separatorBuilder: (context, index) =>
+                              SizedBox(
+                                width: 2.w,
+                              ),
+                          itemCount: (HomeCubit
+                              .get(context)
+                              .categoriesData
+                              ?.data
+                              ?.data
+                              ?.length)!)),
+                ) : SizedBox.shrink()
               ],
-            ):CircularProgressIndicator(),
+            )
+                : CircularProgressIndicator(),
           );
         },
       ),
