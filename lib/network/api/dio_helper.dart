@@ -46,7 +46,9 @@ class DioHelper {
 class LoggingInterceptor extends Interceptor {
   late DateTime startTime;
   late DateTime endTime;
-  var logger = Logger();
+  var logger = Logger(
+
+  );
 
   @override
   onRequest(RequestOptions options, RequestInterceptorHandler handler) {

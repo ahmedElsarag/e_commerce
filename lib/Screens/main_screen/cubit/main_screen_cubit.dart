@@ -14,7 +14,7 @@ class MainScreenCubit extends Cubit<MainScreenStates> {
 
   static MainScreenCubit get(context) => BlocProvider.of(context);
   List<Widget> screens = [
-    const HomeScreen(),
+    HomeScreen(),
     const CategoryScreen(),
     const FavoriteScreen(),
     const MoreScreen()
@@ -27,22 +27,4 @@ class MainScreenCubit extends Cubit<MainScreenStates> {
     emit(BottomNavIndexState());
   }
 
-  HomeResponse? homeResponse;
-
-  void getHomeData() {
-    emit(LoadingHomeDataState());
-    DioHelper.getData<HomeResponse>(
-        url: EndPoints.home,
-        onSuccess: (response) {
-          emit(SuccessHomeDataState());
-          if(response!.status!) {
-            print(response.data?.products![0]?.name);
-            homeResponse = response;
-          }
-
-        }).catchError((error){
-          print(error);
-          emit(ErrorHomeDataState());
-    });
-  }
 }

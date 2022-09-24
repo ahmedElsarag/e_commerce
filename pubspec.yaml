@@ -45,6 +45,8 @@ dependencies:
   fluttertoast: ^8.0.9
   shared_preferences: ^2.0.15
   logger: ^1.1.0
+  carousel_slider: ^4.1.1
+  carousel_indicator: ^1.0.6
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +73,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/svg/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
